@@ -1,0 +1,34 @@
+<%if @movie.present? && @movie_detail.present?%>
+  <table>
+    <tr>
+      <th>Movie Name</th>
+      <th>Movie Poster</th>
+      <th>Is Active</th>
+      <th>Movie Dates</th>
+      <th>Movie Time Slots</th>
+      <th>First Class Seats</th>
+      <th>Second Class Seats</th>
+      <th>Third Class Seats</th>
+      <th>Update Record</th>
+    </tr>
+    <%@movie_detail.each do |movie_dtl|%>
+    <tr>
+      <form action="/edit-movie/<%=params[:movie_id]%>">
+        <%= hidden_field_tag 'movie_id', params[:movie_id] %>
+        <%= hidden_field_tag 'movie_detail_id', movie_dtl.id %>
+        <td><input type='text' name="mname" value='<%=@movie.name%>'/></td>
+        <td><input type='text' name="murl" value='<%=@movie.image_url%>'/></td>
+        <td><input type='text' name="is_active" value='<%=@movie.is_active%>'/></td>
+        <td><input type='text' name="mdate" value='<%=movie_dtl.movie_date%>'/></td>
+        <td><input type='text' name="mtime" value='<%=movie_dtl.movie_time%>'/></td>
+        <td><input type='text' name="mfcs" value='<%=movie_dtl.first_class_seat%>'/></td>
+        <td><input type='text' name="mscs" value='<%=movie_dtl.second_class_seat%>'/></td>
+        <td><input type='text' name="mtcs" value='<%=movie_dtl.third_class_seat%>'/></td>
+        <td><input type="submit" value="Submit"></td>
+      </form>
+    </tr>
+    <%end%>
+  </table>
+<%else%>
+  <h2>No Movie Detail found.</h2>
+<%end%> 

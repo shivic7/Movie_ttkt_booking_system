@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
+</head>
+<body>
+
+<button style="width:auto;margin-left: 80%;" onclick="signup()">Login</button>
+<%@movies.each do |movie|%>
+  <div>
+    <img src="<%=movie['image_url']%>" width="200" height="200">
+    <a href="/book-ticket/<%=movie['id']%>"><%=movie['name']%></a>
+  </div>
+<%end%>
+<script type="text/javascript">
+  function signup(){
+    window.location.href = "/admins/sign_in"
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<%if @movie.present? && @movie_detail.present?%>
+	<table>
+	  <tr>
+	    <th>Movie Name</th>
+	    <th>Movie Dates</th>
+	    <th>Movie Time Slots</th>
+	    <th>First Class Seats</th>
+	    <th>Second Class Seats</th>
+	    <th>Third Class Seats</th>
+	  </tr>
+	  <%@movie_detail.each do |movie_dtl|%>
+	  <tr>
+	    <td><%=@movie.name%></td>
+	    <td><%=movie_dtl.movie_date%></td>
+	    <td><%=movie_dtl.movie_time%></td>
+	    <td><%=movie_dtl.first_class_seat%></td>
+	    <td><%=movie_dtl.second_class_seat%></td>
+	    <td><%=movie_dtl.third_class_seat%></td>
+	  </tr>
+	  <%end%>
+	</table>
+	<h2>Book Ticket</h2>
+	<div class="book">
+    <label class="marg-bot-0">
+      Movie Date
+    </label>
+    <select name="mdate" class="mdate form-control">
+      <% @movie_detail.map(&:movie_date).uniq.each do |movie_dtl| %>
+     	 <option value="<%= movie_dtl%>" class="movie_date"><%= movie_dtl%></option>
+      <%end%>
+    </select><br>
+    <label class="marg-bot-0">
+      Movie Time
+    </label>
+    <select name="mtime" class="mtime form-control">
+      <% @movie_detail.map(&:movie_time).uniq.each do |movie_dtl| %>
+     	 <option value="<%= movie_dtl%>" class="movie_time"><%= movie_dtl%></option>
+      <%end%>
+    </select><br>
+    <label>First Class Seat:</label><br>
+		<input type="number" id="mfcs" name="mfcs" value="" max="30"><br><br>
+		<label>Second Class Seat:</label><br>
+		<input type="number" id="mscs" name="mscs" value="" max="40"><br><br>
+		<label>Third Class Seat:</label><br>
+		<input type="number" id="mtcs" name="mtcs" value="" max="30"><br><br>
+		<button style="" onclick="book_ticket()">Book</button>
+	</div>
+<%else%>
+	<h2>No Movie Detail found.</h2>
+<%end%>
+ <!-- Modal -->
+	<div class="modal fade" id="event_msg" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p style="text-align: center;" id="amount_text"></p>
+        	<p style="text-align: center;" id="popup_text"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<!-- Modal End -->
+<style type="text/css">
+	.book {
+  background-color: lightgrey;
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function book_ticket(){
+		$.ajax({
+      type: 'post',
+      url: '/calculate-amount',
+      data: {mfcs: $('#mfcs').val(), mscs: $('#mscs').val(), mtcs: $('#mtcs').val(), movie_id: '<%=@movie['id']%>', movie_date: $('.mdate').val(), movie_time: $('.mtime').val()},
+      success: function (res) {
+        $('#event_msg').modal('show');
+        $('#popup_text').text(res.msg);
+        $('#amount_text').text("Amount " + res.amount);
+      }
+    });
+	}
+</script>

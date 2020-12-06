@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<button style="width:auto;margin-left: 20%;" onclick="add_movie()">ADD Movie</button>
+
+
+<table>
+  <tr>
+    <th>Movie Name</th>
+    <th>Movie Poster</th>
+    <th>View Report</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <%@movies.each do |movie|%>
+  <tr>
+    <td><%=movie.name%></td>
+    <td><%=movie.image_url%></td>
+    <td><a href="view-movie/<%=movie.id%>">View here</a></td>
+    <td><a href="edit-movie/<%=movie.id%>">Edit here</a></td>
+    <td><a href="delete-movie/<%=movie.id%>">Delete here</a></td>
+  </tr>
+  <%end%>
+</table>
+
+
+<script type="text/javascript">
+  function add_movie(){
+    window.location.href = "/add-movie"
+  }
+</script>
+</body>
+</html>

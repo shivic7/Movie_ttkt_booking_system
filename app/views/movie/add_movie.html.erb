@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>ADD Movie</h2>
+<div class="container-fluid" style="padding:0px !important;">
+<form action="/add-movie">
+  <label for="fname">Movie name:</label><br>
+  <input type="text" id="mname" name="mname" value=""><br>
+  <label for="lname">Movie poster:</label><br>
+  <input type="text" id="mposter" name="mposter" value=""><br><br>
+  <div>
+    <div class="form-group col-sm-2" style="position: relative">
+    <label for="from_date">Movie Date:</label>
+    <input type="text" id="mdate" name="mdate" value=""><br><br>
+  </div> 
+  <label for="lname">Movie slots:</label><br>
+  <input type="text" id="mslots" name="mslots" value=""><br><br>
+  <label for="lname">Is Active:</label><br>
+  <input type="text" id="is_active" name="is_active" value=""><br><br>
+  <input type="submit" value="Submit">
+</form> 
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+<script type="text/javascript">
+  $(document).ready(function(){
+  	$('#mdate').datepicker({
+      dateFormat: "dd-mm-yy"
+  	}); 
+  });
+</script>
+</body>
+</html>

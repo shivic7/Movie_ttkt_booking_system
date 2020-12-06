@@ -1,0 +1,33 @@
+<%if @movie.present? && @movie_detail.present?%>
+	<%= form_tag('/download-movie-report', :method=>'post') do %>
+   <div class="form-group col-sm-2" style="margin-left: 80%;">
+    <%= hidden_field_tag 'movie_detail', @movie_detail.to_json %>
+    <%= hidden_field_tag 'movie', @movie.to_json %>
+    <button class="btn btn-primary" value="submit">Download CSV</button>
+  </div>
+  <%end%>
+	<table>
+	  <tr>
+	    <th>Movie Name</th>
+	    <th>Movie Poster</th>
+	    <th>Movie Dates</th>
+	    <th>Movie Time Slots</th>
+	    <th>First Class Seats</th>
+	    <th>Second Class Seats</th>
+	    <th>Third Class Seats</th>
+	  </tr>
+	  <%@movie_detail.each do |movie_dtl|%>
+	  <tr>
+	    <td><%=@movie.name%></td>
+	    <td><%=@movie.image_url%></td>
+	    <td><%=movie_dtl.movie_date%></td>
+	    <td><%=movie_dtl.movie_time%></td>
+	    <td><%=movie_dtl.first_class_seat%></td>
+	    <td><%=movie_dtl.second_class_seat%></td>
+	    <td><%=movie_dtl.third_class_seat%></td>
+	  </tr>
+	  <%end%>
+	</table>
+<%else%>
+	<h2>No Movie Detail found.</h2>
+<%end%>
