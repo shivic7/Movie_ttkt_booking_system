@@ -20,7 +20,7 @@
 	  <%end%>
 	</table>
 	<h2>Book Ticket</h2>
-	<div class="book">
+	<div class="col-xs-6 book">
     <label class="marg-bot-0">
       Movie Date
     </label>
@@ -43,8 +43,11 @@
 		<input type="number" id="mscs" name="mscs" value="" max="40"><br><br>
 		<label>Third Class Seat:</label><br>
 		<input type="number" id="mtcs" name="mtcs" value="" max="30"><br><br>
+    <label>User name:</label><br>
+    <input type="text" id="user_name" name="user_name" value="" ><br><br>
 		<button style="" onclick="book_ticket()">Book</button>
 	</div>
+  <div class="col-xs-6 book" style="display: none;" id="receipt"></div>
 <%else%>
 	<h2>No Movie Detail found.</h2>
 <%end%>
@@ -70,6 +73,7 @@
     </div>
   </div>
 <!-- Modal End -->
+
 <style type="text/css">
 	.book {
   background-color: lightgrey;
@@ -87,11 +91,13 @@
 		$.ajax({
       type: 'post',
       url: '/calculate-amount',
-      data: {mfcs: $('#mfcs').val(), mscs: $('#mscs').val(), mtcs: $('#mtcs').val(), movie_id: '<%=@movie['id']%>', movie_date: $('.mdate').val(), movie_time: $('.mtime').val()},
+      data: {mfcs: $('#mfcs').val(), mscs: $('#mscs').val(), mtcs: $('#mtcs').val(), movie_id: '<%=@movie['id']%>', movie_date: $('.mdate').val(), movie_time: $('.mtime').val(), user_name: $('#user_name').val()},
       success: function (res) {
         $('#event_msg').modal('show');
         $('#popup_text').text(res.msg);
         $('#amount_text').text("Amount " + res.amount);
+        $('#receipt').show();
+        $('#receipt').text(res.pass + " Passenger booked for <%=@movie['name']%> on "+ $('.mdate').val() + " for time "+ $('.mtime').val() + ". Amount "+ res.amount)
       }
     });
 	}
