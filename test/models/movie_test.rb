@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MovieTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "verify add movie" do
+    assert true
+  end
 end
